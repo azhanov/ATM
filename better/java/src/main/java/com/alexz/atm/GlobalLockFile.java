@@ -35,7 +35,7 @@ public class GlobalLockFile implements GlobalLock {
             if (fileLock != null) {
                 LOGGER.info("Acquired lock: " + fileLock);
             } else {
-                LOGGER.warning("Couldn't acquired lock, currently lock=null");
+                LOGGER.warning("Couldn't acquired lock, currently lock = null");
             }
         }
         catch (Exception ex) {
@@ -82,12 +82,15 @@ public class GlobalLockFile implements GlobalLock {
 
     public static void main(String[] args) {
         GlobalLockFile glf = new GlobalLockFile();
-        FileLock fileLock = glf.acquireLock(1234);
+        int pin = 1234;
+        int timeOutInMilSec = 10000;
+        FileLock fileLock = glf.acquireLock(pin);
         try {
-            Thread.sleep(10000);
+            Thread.sleep(timeOutInMilSec);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println("After sleep Acquired lock: " + fileLock);
+        glf.releaseLock(pin);
     }
 }
