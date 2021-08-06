@@ -1,7 +1,7 @@
-# ATM
+# ATM - Boilerplate implementation of an ATM machine basic functionality in code.
 
-## Boilerplate implementation of an ATM machine basic functionality in code.
 
+## Introduction
 Given 4 essential functional requirements:
 - A customer can login to the ATM account by providing a 4 digit pin number
 - A customer can view their current balance
@@ -11,6 +11,7 @@ Given 4 essential functional requirements:
 Let's add one more practical one:
 - Daily withdrawl limit
 
+
 ## Non functional requirements
 - Any changes must be persisted to a permanent storage
 - Distributed lock, to make things easier let's quote https://redis.io/topics/distlock:
@@ -19,6 +20,7 @@ Let's add one more practical one:
 >3. Liveness property B: Fault tolerance. As long as the majority of Redis nodes are up, clients are able to acquire and release locks.
 
 Thus, when a user logs into an ATM, other users with the same PIN can not login/perform any activities until currently logged in user either logs out or connection times out.
+
 
 ## Implementation
 
@@ -33,3 +35,24 @@ Future implementation - use a trully distributed lock (a DB "select for update..
 
 Makes sense? Throw me a question otherwise.
 Thanks and happy coding!
+
+
+## Testing
+
+To test Python script, pull the source coee to your machine.
+Step into a project directory.
+And then move into a "naive" implementation directory: "naive/python/ATM"
+Run and follow instructions: 
+```
+python ui.py
+```
+
+Only a lock implemention is provided in Java. To test the Java locking, open two separate command windows:
+Step into a project directory.
+And then move into a "naive" implementation directory: "better/java"
+Step into a build directory: "build/classes/java/main"
+Run and follow instructions: 
+```
+java com.alexz.atm.GlobalLockFile
+```
+Watch as the first client manages to acquire the lock for 10 seconds, while the second command ran from another window fails to acquire it.
